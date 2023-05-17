@@ -1,4 +1,4 @@
-import Payment from "./payment";
+import Payment from "./components/payment";
 
 function App() {
   return <Payment amount={18} />;

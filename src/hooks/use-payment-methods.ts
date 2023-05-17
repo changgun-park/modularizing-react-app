@@ -1,6 +1,6 @@
-import { RemotePaymentMethod } from "./types";
+import { RemotePaymentMethod } from "../types";
 import { useEffect, useState } from "react";
-import { PaymentMethod } from "./payment-method";
+import { PaymentMethod } from "../models/payment-method";
 
 const convertPaymentMethods = (methods: RemotePaymentMethod[]) => {
   if (methods.length === 0) {

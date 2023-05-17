@@ -1,5 +1,4 @@
-import { PaymentMethod } from "./payment-method";
-import { usePaymentMethods } from "./use-payment-methods";
+import { PaymentMethod } from "../models/payment-method";
 
 export function PaymentMethods({
   paymentMethods,
@@ -20,19 +19,5 @@ export function PaymentMethods({
         </label>
       ))}
     </>
-  );
-}
-
-export default function Payment({ amount }: { amount: number }) {
-  const { paymentMethods } = usePaymentMethods();
-
-  return (
-    <div>
-      <h3>PAYMENT</h3>
-      <div>
-        <PaymentMethods paymentMethods={paymentMethods} />
-      </div>
-      <button>${amount}</button>
-    </div>
   );
 }

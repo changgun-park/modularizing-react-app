@@ -1,4 +1,4 @@
-import { RemotePaymentMethod } from "./types";
+import { RemotePaymentMethod } from "../types";
 
 export class PaymentMethod {
   remotePaymentMethod: RemotePaymentMethod;
