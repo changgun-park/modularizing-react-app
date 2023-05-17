@@ -1,7 +1,7 @@
 import { LocalPaymentMethod, RemotePaymentMethod } from "./types";
 import { useEffect, useState } from "react";
 
-export default function Payment({ amount }: { amount: number }) {
+export function usePaymentMethods() {
   const [paymentMethods, setPaymentMethods] = useState<LocalPaymentMethod[]>(
     []
   );
@@ -17,7 +17,6 @@ export default function Payment({ amount }: { amount: number }) {
           provider: method.name,
           label: `Pay with ${method.name}`,
         }));
-        console.log(extended);
         extended.push({ provider: "cash", label: "Pay in cash" });
         setPaymentMethods(extended);
       } else {
@@ -28,21 +27,39 @@ export default function Payment({ amount }: { amount: number }) {
     fetchPaymentMethods();
   }, []);
 
+  return { paymentMethods };
+}
+
+export function PaymentMethods({
+  paymentMethods,
+}: {
+  paymentMethods: LocalPaymentMethod[];
+}) {
+  return (
+    <>
+      {paymentMethods.map((method) => (
+        <label key={method.provider}>
+          <input
+            type="radio"
+            name="payment"
+            value={method.provider}
+            defaultChecked={method.provider === "cash"}
+          />
+          <span>{method.label}</span>
+        </label>
+      ))}
+    </>
+  );
+}
+
+export default function Payment({ amount }: { amount: number }) {
+  const { paymentMethods } = usePaymentMethods();
+
   return (
     <div>
       <h3>PAYMENT</h3>
       <div>
-        {paymentMethods.map((method) => (
-          <label key={method.provider}>
-            <input
-              type="radio"
-              name="payment"
-              value={method.provider}
-              defaultChecked={method.provider === "cash"}
-            />
-            <span>{method.label}</span>
-          </label>
-        ))}
+        <PaymentMethods paymentMethods={paymentMethods} />
       </div>
       <button>${amount}</button>
     </div>
